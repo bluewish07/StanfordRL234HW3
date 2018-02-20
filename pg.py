@@ -187,7 +187,7 @@ class PG(object):
         log_std = tf.get_variable("log_std", shape=[self.action_dim], dtype=tf.float32)
         dist = tf.contrib.distributions.MultivariateNormalDiag(action_means, tf.exp(log_std))
         sample = dist.sample()
-        sample = tf.Print(sample, [sample, sample.shape], message="sample")
+        sample = tf.Print(sample, [sample, tf.shape(sample)], message="sample")
         self.sampled_action = tf.squeeze(sample, axis=-1)
         self.logprob = dist.log_prob(self.action_placeholder)
         self.logprob = tf.Print(self.logprob, [self.logprob], message="logprob_continuous")
