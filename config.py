@@ -9,7 +9,7 @@ class config():
     #env_name="HalfCheetah-v1"
 
 
-    record           = True 
+    record           = False
 
     # output config
     output_path  = "results/" + env_name + "/"
