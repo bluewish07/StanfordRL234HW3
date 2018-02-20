@@ -3,3 +3,4 @@
 results/
 gym/
 *.pyc
+MUJOCO_LOG.TXT
