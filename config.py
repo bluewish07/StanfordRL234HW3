@@ -5,7 +5,7 @@ class config():
 
     # Change env_name for the different experiments
     #env_name="CartPole-v0"
-    env_name="InvertedPendulum-v1"
+    env_name="InvertedPendulum-v2"
     #env_name="HalfCheetah-v1"
 
 
