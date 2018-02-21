@@ -183,7 +183,7 @@ class PG(object):
       #self.logprob = tf.Print(self.logprob, [self.logprob], message="logprob_discrete")
     else:
       # TODO: output_activation = self.config.activation
-      action_means = build_mlp(self.observation_placeholder, self.action_dim, scope=scope, output_activation=tf.nn.relu)
+      action_means = build_mlp(self.observation_placeholder, self.action_dim, scope=scope)
       action_means = tf.Print(action_means, [action_means, tf.shape(action_means)], message="action_means")
       with tf.variable_scope(scope):
         log_std = tf.get_variable("log_std", shape=[self.action_dim], dtype=tf.float32)
