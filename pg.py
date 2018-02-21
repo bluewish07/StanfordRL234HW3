@@ -184,13 +184,11 @@ class PG(object):
     else:
       # TODO: output_activation = self.config.activation
       action_means = build_mlp(self.observation_placeholder, self.action_dim, scope=scope, output_activation=tf.nn.relu)
-      #action_means = tf.Print(action_means, [action_means, tf.shape(action_means)], message="action_means")
+      action_means = tf.Print(action_means, [action_means, tf.shape(action_means)], message="action_means")
       with tf.variable_scope(scope):
         log_std = tf.get_variable("log_std", shape=[self.action_dim], dtype=tf.float32)
         log_std = tf.Print(log_std, [log_std, tf.shape(log_std)], message="log_std")
-        scale_mult = tf.ones(shape=[tf.shape(action_means)[0]])
-        scale_mult = tf.Print(scale_mult, [scale_mult], message="scale multiplier")
-        dist = tf.contrib.distributions.MultivariateNormalDiag(action_means, tf.exp(log_std), scale_identity_multiplier=scale_mult)
+        dist = tf.contrib.distributions.MultivariateNormalDiag(action_means, tf.exp(log_std))
         sample = dist.sample()
         #sample = tf.Print(sample, [sample, tf.shape(sample)], message="sample")
         self.sampled_action = sample
