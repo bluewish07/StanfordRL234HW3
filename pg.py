@@ -193,7 +193,7 @@ class PG(object):
         #sample = tf.Print(sample, [sample, tf.shape(sample)], message="sample")
         self.sampled_action = sample
         self.logprob = dist.log_prob(self.action_placeholder)
-        self.logprob = tf.Print(self.logprob, [self.logprob], message="logprob_continuous")
+        self.logprob = tf.Print(self.logprob, [self.logprob, tf.shape(self.logprob)], message="logprob_continuous")
     #######################################################
     #########          END YOUR CODE.          ############
             
@@ -218,6 +218,7 @@ class PG(object):
     ######################################################
     #########   YOUR CODE HERE - 1-2 lines.   ############
     self.loss = -tf.reduce_sum(self.logprob * self.advantage_placeholder)
+    self.loss = tf.Print(self.loss, [self.loss], message="loss ")
     #######################################################
     #########          END YOUR CODE.          ############
   
