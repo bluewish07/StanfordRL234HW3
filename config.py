@@ -5,8 +5,8 @@ class config():
 
     # Change env_name for the different experiments
     #env_name="CartPole-v0"
-    env_name="InvertedPendulum-v1"
-    #env_name="HalfCheetah-v1"
+    #env_name="InvertedPendulum-v1"
+    env_name="HalfCheetah-v1"
 
 
     record           = False
@@ -24,9 +24,11 @@ class config():
     # model and training config
     num_batches = 200 # number of batches trained on
     batch_size = 1000 # number of steps used to compute each policy update
+    #batch_size = 50000
     max_ep_len = 1000 # maximum episode length
     learning_rate = 3e-2
-    gamma              = 1.0 # the discount factor
+    #gamma              = 1.0 # the discount factor
+    gamma = .9
     use_baseline = True
     normalize_advantage=True 
     # parameters for the policy and baseline models
