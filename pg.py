@@ -184,16 +184,16 @@ class PG(object):
     else:
       # TODO: output_activation = self.config.activation
       action_means = build_mlp(self.observation_placeholder, self.action_dim, scope=scope)
-      action_means = tf.Print(action_means, [action_means, tf.shape(action_means)], message="action_means")
+      #action_means = tf.Print(action_means, [action_means, tf.shape(action_means)], message="action_means")
       with tf.variable_scope(scope):
         log_std = tf.get_variable("log_std", shape=[self.action_dim], dtype=tf.float32)
-        log_std = tf.Print(log_std, [log_std, tf.shape(log_std)], message="log_std")
+        #log_std = tf.Print(log_std, [log_std, tf.shape(log_std)], message="log_std")
         dist = tf.contrib.distributions.MultivariateNormalDiag(action_means, tf.exp(log_std))
         sample = dist.sample()
-        sample = tf.Print(sample, [sample, tf.shape(sample)], message="sample")
+        #sample = tf.Print(sample, [sample, tf.shape(sample)], message="sample")
         self.sampled_action = sample
         self.logprob = dist.log_prob(self.action_placeholder)
-        self.logprob = tf.Print(self.logprob, [self.logprob, tf.shape(self.logprob)], message="logprob_continuous")
+        #self.logprob = tf.Print(self.logprob, [self.logprob, tf.shape(self.logprob)], message="logprob_continuous")
     #######################################################
     #########          END YOUR CODE.          ############
             
@@ -217,9 +217,9 @@ class PG(object):
 
     ######################################################
     #########   YOUR CODE HERE - 1-2 lines.   ############
-    k = -tf.reduce_sum(self.logprob * self.advantage_placeholder)
-    k = tf.Print(k, [k], message="loss ")
-    self.loss = k
+    #k = -tf.reduce_sum(self.logprob * self.advantage_placeholder)
+    #k = tf.Print(k, [k], message="loss ")
+    self.loss = -tf.reduce_sum(self.logprob * self.advantage_placeholder)
     #######################################################
     #########          END YOUR CODE.          ############
   
