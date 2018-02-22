@@ -96,7 +96,6 @@ class PG(object):
     self.discrete = isinstance(env.action_space, gym.spaces.Discrete)
     self.observation_dim = self.env.observation_space.shape[0]
     self.action_dim = self.env.action_space.n if self.discrete else self.env.action_space.shape[0]
-    print("action dimension" + str(self.action_dim))
   
     self.lr = self.config.learning_rate
   
@@ -175,14 +174,12 @@ class PG(object):
     #########   YOUR CODE HERE - 5-10 lines.   ############
   
     if self.discrete:
-      # TODO: output_activation = self.config.activation
-      action_logits = build_mlp(self.observation_placeholder, self.action_dim, scope=scope, output_activation=tf.nn.relu)
+      action_logits = build_mlp(self.observation_placeholder, self.action_dim, scope=scope)
       action_samples = tf.multinomial(action_logits, 1)
       self.sampled_action = tf.squeeze(action_samples, axis=1)
       self.logprob = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=self.action_placeholder, logits=action_logits) * -1.
       #self.logprob = tf.Print(self.logprob, [self.logprob], message="logprob_discrete")
     else:
-      # TODO: output_activation = self.config.activation
       action_means = build_mlp(self.observation_placeholder, self.action_dim, scope=scope)
       #action_means = tf.Print(action_means, [action_means, tf.shape(action_means)], message="action_means")
       with tf.variable_scope(scope):
